@@ -14,7 +14,9 @@
         </div>
       </div>
 
-      <div class="post-date text-faded">{{ post.publishedAt }}</div>
+      <div class="post-date text-faded">
+        <app-date :timestamp="post.publishedAt"></app-date>
+      </div>
 
     </div>
 
