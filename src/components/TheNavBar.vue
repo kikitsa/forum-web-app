@@ -12,14 +12,30 @@
     </div>
 
     <nav class="navbar">
+      <ul>
+        <li class="navbar-user">
+          <router-link :to="{name: 'Profile'}">
+            <img class="avatar-small" :src="authUser.avatar" :alt="`${authUser.name} profile picture`">
+            <span>
+              {{authUser.name}}
+              <img class="icon-profile" src="../assets/svg/arrow-profile.svg" alt="">
+            </span>
+          </router-link>
+        </li>
+      </ul>
 
     </nav>
   </header>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'TheNavBar'
+  name: 'TheNavBar',
+  computed: {
+    ...mapGetters(['authUser'])
+  }
 }
 </script>
 
