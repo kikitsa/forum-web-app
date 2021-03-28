@@ -2,36 +2,26 @@
   <div class="container">
     <div class="flex-grid">
       <div class="col-3 push-top">
-        <div class="profile-card">
-          <p class="text-center">
-            <img :src="user.avatar" :alt="`${user.name} profile picture`" class="avatar-xlarge">
-          </p>
-
-          <h1 class="title">{{user.username}}</h1>
-
-          <p class="text-lead">{{user.name}}</p>
-
-          <p class="text-justify">{{user.bio || 'No bio specified'}}</p>
-
-          <span class="online">{{user.username}} is online</span>
-
-          <div class="stats">
-            <span>{{userPostsCount}} posts</span>
-            <span>{{userThreadsCount}} threads</span>
-          </div>
-
+        <user-profile-card :user="user"></user-profile-card>
+        <user-profile-card-editor :user="user"></user-profile-card-editor>
+        <p class="text-xsmall text-faded text-center">Member since </p>
+        <div class="text-center">
           <hr>
+          <a href="#" class="btn-green btn-small">Edit Profile</a>
+        </div>
+        <hr>
 
-          <p class="text-large text-center" v-if="user.website">
-            <i class="fa fa-globe"></i>
-            <a :href="user.website">{{user.website}}</a>
-          </p>
+      </div>
 
+      <div class="col-7 push-top">
+        <div class="profile-header">
+          <span class="text-lead">{{user.name}} recent activity</span>
+          <a href="#">See only started threads ?</a>
         </div>
 
         <hr>
+        <post-list :posts="user.posts"></post-list>
 
-        <post-list :posts="userPosts"></post-list>
       </div>
 
     </div>
@@ -41,27 +31,19 @@
 
 <script>
 import PostList from '@/components/PostList'
+import UserProfileCard from '@/components/UserProfileCard'
+import UserProfileCardEditor from '@/components/UserProfileCardEditor'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'Profile',
   components: {
-    PostList
+    UserProfileCard,
+    PostList,
+    UserProfileCardEditor
   },
   computed: {
-    ...mapGetters({ user: 'authUser' }),
-    userPostsCount () {
-      return this.userPosts.length
-    },
-    userThreadsCount () {
-      return this.userThreads.length
-    },
-    userPosts () {
-      return this.$store.state.posts.filter(post => post.userId === this.user.id)
-    },
-    userThreads () {
-      return this.$store.state.threads.filter(thread => thread.userId === this.user.id)
-    }
+    ...mapGetters({ user: 'authUser' })
   }
 }
 </script>
