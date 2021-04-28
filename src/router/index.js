@@ -4,6 +4,8 @@ import NotFound from '@/pages/NotFound'
 import Forum from '@/pages/Forum'
 import Category from '@/pages/Category'
 import Profile from '@/pages/Profile'
+import ThreadCreate from '@/pages/ThreadCreate'
+import ThreadEdit from '@/pages/ThreadEdit'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -13,6 +15,8 @@ const routes = [
   { path: '/category/:id', name: 'Category', component: Category, props: true },
   { path: '/forum/:id', name: 'Forum', component: Forum, props: true },
   { path: '/thread/:id', name: 'ThreadShow', component: ThreadShow, props: true },
+  { path: '/forum/:forumId/thread/create', name: 'ThreadCreate', component: ThreadCreate, props: true },
+  { path: '/thread/:id/edit', name: 'ThreadEdit', component: ThreadEdit, props: true },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
 ]
 
