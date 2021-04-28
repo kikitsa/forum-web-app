@@ -2,15 +2,8 @@
   <div class="container">
     <div class="flex-grid">
       <div class="col-3 push-top">
-        <user-profile-card :user="user"></user-profile-card>
-        <user-profile-card-editor :user="user"></user-profile-card-editor>
-        <p class="text-xsmall text-faded text-center">Member since </p>
-        <div class="text-center">
-          <hr>
-          <a href="#" class="btn-green btn-small">Edit Profile</a>
-        </div>
-        <hr>
-
+        <user-profile-card v-if="!edit" :user="user"></user-profile-card>
+        <user-profile-card-editor v-else :user="user"></user-profile-card-editor>
       </div>
 
       <div class="col-7 push-top">
@@ -41,6 +34,12 @@ export default {
     UserProfileCard,
     PostList,
     UserProfileCardEditor
+  },
+  props: {
+    edit: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     ...mapGetters({ user: 'authUser' })
