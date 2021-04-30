@@ -13,6 +13,12 @@ export default {
     categories () {
       return this.$store.state.categories
     }
+  },
+  async beforeCreate () {
+    const categories = await this.$store.dispatch('fetchAllCategories')
+    const forumIds = categories.map(category => category.forums).flat()
+    this.$store.dispatch('fetchForums', { ids: forumIds })
+    console.log('before create', this.categories)
   }
 }
 </script>
