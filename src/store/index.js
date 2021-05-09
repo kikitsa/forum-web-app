@@ -144,6 +144,9 @@ export default createStore({
       })
     },
     fetchItems ({ dispatch }, { ids, resource, emoji }) {
+      if (ids === undefined) {
+        return [] // TODO
+      }
       return Promise.all(ids.map(id => dispatch('fetchItem', { id, resource, emoji })))
     }
   },
@@ -161,6 +164,9 @@ export default createStore({
 function makeAppendChildToParentMutation ({ parent, child }) {
   return (state, { childId, parentId }) => {
     const resource = findById(state[parent], parentId)
+    if (!resource) {
+      return
+    }
     resource[child] = resource[child] || []
     if (!resource[child].includes(childId)) {
       resource[child].push(childId)
