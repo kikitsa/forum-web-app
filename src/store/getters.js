@@ -10,17 +10,17 @@ export default {
       if (!user) return null
       return {
         ...user,
-        get postsCount () {
-          return this.posts.length
-        },
-        get threadsCount () {
-          return this.threads.length
-        },
         get posts () {
           return state.posts.filter(post => post.userId === user.id)
         },
+        get postsCount () {
+          return this.posts.length
+        },
         get threads () {
-          return state.threads.filter(thread => thread.userId === user.id)
+          return state.threads.filter(post => post.userId === user.id)
+        },
+        get threadsCount () {
+          return this.threads.length
         }
       }
     }
