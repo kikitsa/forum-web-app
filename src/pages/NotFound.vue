@@ -7,7 +7,10 @@
 
 <script>
 export default {
-  name: 'NotFound'
+  name: 'NotFound',
+  created () {
+    this.$emit('ready')
+  }
 }
 </script>
 
