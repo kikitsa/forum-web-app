@@ -81,6 +81,13 @@ export default {
     const result = await firebase.auth().createUserWithEmailAndPassword(email, password)
     await dispatch('createUser', { id: result.user.uid, email, name, username, avatar })
   },
+  signInWithEmailAndPassword (context, { email, password }) {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+  },
+  async signOut ({ commit }) {
+    await firebase.auth().signOut()
+    commit('setAuthId', null)
+  },
   async createUser ({ commit }, { id, email, name, username, avatar = null }) {
     const registeredAt = firebase.firestore.FieldValue.serverTimestamp()
     const usernameLower = username.toLowerCase()
@@ -103,7 +110,7 @@ export default {
   fetchAuthUser: ({ dispatch, state, commit }) => {
     const userId = firebase.auth().currentUser?.uid
     if (!userId) return
-    dispatch('fetchItem', { emoji: '🙋', resource: 'users', id: state.authId })
+    dispatch('fetchItem', { emoji: '🙋', resource: 'users', id: userId })
     commit('setAuthId', userId)
   },
   fetchAllCategories ({ commit }) {
