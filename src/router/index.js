@@ -13,7 +13,15 @@ import store from '@/store'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/me', name: 'Profile', component: Profile, meta: { toTop: true, smoothScroll: true } },
+  {
+    path: '/me',
+    name: 'Profile',
+    component: Profile,
+    meta: { toTop: true, smoothScroll: true },
+    beforeEnter (to, from) {
+      if (!store.state.authId) return { name: 'Home' }
+    }
+  },
   { path: '/me/edit', name: 'ProfileEdit', component: Profile, props: { edit: true } },
   { path: '/category/:id', name: 'Category', component: Category, props: true },
   { path: '/forum/:id', name: 'Forum', component: Forum, props: true },
@@ -22,6 +30,14 @@ const routes = [
   { path: '/thread/:id/edit', name: 'ThreadEdit', component: ThreadEdit, props: true },
   { path: '/register', name: 'Register', component: Register },
   { path: '/signin', name: 'SignIn', component: SignIn },
+  {
+    path: '/logout',
+    name: 'SignOut',
+    async beforeEnter (to, from) {
+      await store.dispatch('signOut')
+      return { name: 'Home' }
+    }
+  },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
 ]
 
