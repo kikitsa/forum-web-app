@@ -48,8 +48,8 @@ const routes = [
   },
   { path: '/forum/:forumId/thread/create', name: 'ThreadCreate', component: ThreadCreate, props: true, meta: { requiresAuth: true } },
   { path: '/thread/:id/edit', name: 'ThreadEdit', component: ThreadEdit, props: true, meta: { requiresAuth: true } },
-  { path: '/register', name: 'Register', component: Register },
-  { path: '/signin', name: 'SignIn', component: SignIn },
+  { path: '/register', name: 'Register', component: Register, meta: { requiresGuest: true } },
+  { path: '/signin', name: 'SignIn', component: SignIn, meta: { requiresGuest: true } },
   {
     path: '/logout',
     name: 'SignOut',
@@ -77,6 +77,9 @@ router.beforeEach(async (to, from) => {
   console.log(`🚦 navigating to ${to.name} from ${from.name}`)
   store.dispatch('unsubscribeAllSnapshots')
   if (to.meta.requiresAuth && !store.state.authId) {
+    return { name: 'SignIn' }
+  }
+  if (to.meta.requiresGuest && store.state.authId) {
     return { name: 'Home' }
   }
 })
