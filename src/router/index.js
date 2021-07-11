@@ -20,7 +20,7 @@ const routes = [
     component: Profile,
     meta: { toTop: true, smoothScroll: true, requiresAuth: true }
   },
-  { path: '/me/edit', name: 'ProfileEdit', component: Profile, props: { edit: true } },
+  { path: '/me/edit', name: 'ProfileEdit', component: Profile, props: { edit: true }, meta: { requiresAuth: true } },
   { path: '/category/:id', name: 'Category', component: Category, props: true },
   { path: '/forum/:id', name: 'Forum', component: Forum, props: true },
   {
@@ -46,8 +46,8 @@ const routes = [
       }
     }
   },
-  { path: '/forum/:forumId/thread/create', name: 'ThreadCreate', component: ThreadCreate, props: true },
-  { path: '/thread/:id/edit', name: 'ThreadEdit', component: ThreadEdit, props: true },
+  { path: '/forum/:forumId/thread/create', name: 'ThreadCreate', component: ThreadCreate, props: true, meta: { requiresAuth: true } },
+  { path: '/thread/:id/edit', name: 'ThreadEdit', component: ThreadEdit, props: true, meta: { requiresAuth: true } },
   { path: '/register', name: 'Register', component: Register },
   { path: '/signin', name: 'SignIn', component: SignIn },
   {
