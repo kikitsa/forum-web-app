@@ -43,7 +43,7 @@ export default {
   methods: {
     async signIn () {
       try {
-        await this.$store.dispatch('signInWithEmailAndPassword', { ...this.form })
+        await this.$store.dispatch('auth/signInWithEmailAndPassword', { ...this.form })
         this.successRedirect()
       } catch (error) {
         alert(error.message)
