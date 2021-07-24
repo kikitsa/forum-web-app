@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="width:100%">
     <div class="flex-grid">
       <div class="col-3 push-top">
         <user-profile-card v-if="!edit" :user="user"></user-profile-card>
@@ -27,6 +27,7 @@ import PostList from '@/components/PostList'
 import UserProfileCard from '@/components/UserProfileCard'
 import UserProfileCardEditor from '@/components/UserProfileCardEditor'
 import { mapGetters } from 'vuex'
+import asyncDataStatus from '@/mixins/asyncDataStatus'
 
 export default {
   name: 'Profile',
@@ -35,6 +36,7 @@ export default {
     PostList,
     UserProfileCardEditor
   },
+  mixins: [asyncDataStatus],
   props: {
     edit: {
       type: Boolean,
@@ -44,8 +46,9 @@ export default {
   computed: {
     ...mapGetters({ user: 'authUser' })
   },
-  created () {
-    this.$emit('ready')
+  async created () {
+    await this.$store.dispatch('fetchAuthUsersPosts')
+    this.asyncDataStatus_fetched()
   }
 }
 </script>
