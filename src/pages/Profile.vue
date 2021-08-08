@@ -14,7 +14,10 @@
 
         <hr>
         <post-list :posts="user.posts"></post-list>
-
+        <AppInfiniteScroll
+          @load="fetchUserPosts"
+          :done="user.posts.length === user.postsCount"
+        />
       </div>
 
     </div>
@@ -50,10 +53,13 @@ export default {
       return this.user.posts[this.user.posts.length - 1]
     }
   },
+  methods: {
+    fetchUserPosts () {
+      return this.$store.dispatch('auth/fetchAuthUsersPosts', { startAfter: this.lastPostFetched })
+    }
+  },
   async created () {
-    await this.$store.dispatch('auth/fetchAuthUsersPosts',
-      { startAfter: this.lastPostFetched }
-    )
+    await this.fetchUserPosts()
     this.asyncDataStatus_fetched()
   }
 }
