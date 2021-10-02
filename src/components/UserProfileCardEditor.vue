@@ -16,6 +16,8 @@
         </label>
       </p>
 
+      <UserProfileCardEditorRandomAvatar @hit="activeUser.avatar = $event" />
+
       <div class="form-group">
         <input v-model="activeUser.username" type="text" placeholder="Username" class="form-input text-lead text-bold"/>
       </div>
@@ -61,12 +63,12 @@
 </template>
 
 <script>
-import AppSpinner from '@/components/AppSpinner'
+import UserProfileCardEditorRandomAvatar from './UserProfileCardEditorRandomAvatar'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'UserProfileCardEditor',
-  components: { AppSpinner },
+  components: { UserProfileCardEditorRandomAvatar },
   props: {
     user: {
       required: true,
