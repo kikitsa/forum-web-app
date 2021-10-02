@@ -4,7 +4,9 @@
     <div v-for="post in posts" :key="post.id" class="post">
       <div v-if="userById(post.userId)" class="user-info">
         <a href="#" class="user-name">{{ userById(post.userId).name }}</a>
-        <a href="#"><img class="avatar-large" :src="userById(post.userId).avatar" alt=""></a>
+        <a href="#">
+          <AppAvatarImg class="avatar-large" :src="userById(post.userId).avatar" />
+        </a>
         <p class="desktop-only text-small">{{ userById(post.userId).postsCount }} posts</p>
         <p class="desktop-only text-small">{{ userById(post.userId).threadsCount }} threads</p>
       </div>
