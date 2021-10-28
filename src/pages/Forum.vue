@@ -17,7 +17,6 @@
         v-model="page"
         :pages="totalPages"
         active-color="#57AD8D"
-        @update:modelValue="updateHandler"
       />
     </div>
   </div>

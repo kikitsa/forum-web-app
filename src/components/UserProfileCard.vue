@@ -27,12 +27,7 @@
 
     </div>
 
-    <p class="text-xsmall text-faded text-center">
-      Member since
-    </p>
-
     <div class="text-center">
-      <hr>
       <router-link :to="{name: 'ProfileEdit'}" class="btn-green btn-small">Edit Profile</router-link>
     </div>
   </div>
