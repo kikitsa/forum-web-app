@@ -1,13 +1,11 @@
 <template>
   <div class="col-full">
-    <form @submit.prevent="save">
-      <div class="form-group">
-        <textarea v-model="postCopy.text" name="" id="" cols="30" rows="10" class="form-input"></textarea>
-      </div>
+    <VeeForm @submit="save" :key="formKey">
+      <AppFormField as="textarea" name="text" v-model="postCopy.text" rows="10" cols="30" rules="required" />
       <div class="form-actions">
         <button class="btn-blue">{{post.id ? 'Update Post' : 'Submit post'}}</button>
       </div>
-    </form>
+    </VeeForm>
   </div>
 
 </template>
@@ -20,13 +18,15 @@ export default {
   },
   data () {
     return {
-      postCopy: { ...this.post }
+      postCopy: { ...this.post },
+      formKey: Math.random()
     }
   },
   methods: {
     save () {
       this.$emit('save', { post: this.postCopy })
       this.postCopy.text = ''
+      this.formKey = Math.random()
     }
   }
 }
